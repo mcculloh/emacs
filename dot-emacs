@@ -1,0 +1,82 @@
+;; apple stuff
+
+(setq ns-command-modifier 'meta)
+(setq ns-option-modifier 'super)
+
+;; Added by Package.el.  This must come before configurations of;; Added by Package.el.  This must come before configurations of
+;; installed packages.  Don't delete this line.  If you don't want it,
+;; just comment it out by adding a semicolon to the start of the line.
+;; You may delete these explanatory comments.
+(package-initialize)
+
+(setq mac-pass-command-to-system nil)
+
+(global-set-key (kbd "C-x C-g") 'magit-status)
+(global-set-key (kbd "C-x C-b") 'ibuffer)
+(global-set-key (kbd "M-`") 'other-frame)
+
+(setq smerge-command-prefix "\C-cv")
+
+(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
+                         ("melpa" . "http://melpa.milkbox.net/packages/")))
+
+(server-start)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(github-notifier-mode t)
+ '(github-notifier-token "48d1c2c779df05bb131f8ab6f7f71c019be3bbc2")
+ '(package-selected-packages
+   (quote
+    (ein go-mode exec-path-from-shell sbt-mode scala-mode flycheck-pyflakes flycheck magit-popup ace-window matlab-mode magit-push-remote magit-gh-pulls magit-find-file magit-filenotify lua-mode ess cpputils-cmake cmake-mode))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(default ((t (:inherit nil :stipple nil :background "White" :foreground "Black" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 140 :width normal :foundry "apple" :family "Monaco")))))
+
+;(require 'cmake-project)
+
+;; (defun maybe-cmake-project-hook ()
+;;   (if (file-exists-p "CMakeLists.txt") (cmake-project-mode)))
+;; (add-hook 'c-mode-hook 'maybe-cmake-project-hook)
+;; (add-hook 'c++-mode-hook 'maybe-cmake-project-hook)
+
+;(require 'cpputils-cmake)
+
+(add-hook 'c-mode-common-hook
+          (lambda ()
+            (if (derived-mode-p 'c-mode 'c++-mode)
+                (cppcm-reload-all)
+              )))
+
+(add-hook 'c-mode-hook
+          (lambda () (add-to-list 'write-file-functions 'delete-trailing-whitespace)))
+
+(put 'narrow-to-region 'disabled nil)
+(put 'upcase-region 'disabled nil)
+
+(require 'magit-gh-pulls)
+(add-hook 'magit-mode-hook 'turn-on-magit-gh-pulls)
+;(put 'set-goal-column 'disabled nil)
+
+(when (memq window-system '(mac ns))
+  (exec-path-from-shell-initialize))
+
+;; Put the anaconda path on the front if exec path
+;; /Users/andrew/anaconda/bin
+(setq exec-path (cons "/Users/andrew/anaconda3/bin" exec-path))
+
+(require 'flycheck-pyflakes)
+(add-hook 'python-mode-hook 'flycheck-mode)
+
+;; If you want to use pyflakes you probably don't want pylint or
+;; flake8. To disable those checkers, add the following to your
+;; init.el:
+
+;; (add-to-list 'flycheck-disabled-checkers 'python-flake8)
+;; (add-to-list 'flycheck-disabled-checkers 'python-pylint)
+
