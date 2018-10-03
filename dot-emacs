@@ -26,8 +26,6 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(github-notifier-mode t)
- '(github-notifier-token "48d1c2c779df05bb131f8ab6f7f71c019be3bbc2")
  '(package-selected-packages
    (quote
     (ein go-mode exec-path-from-shell sbt-mode scala-mode flycheck-pyflakes flycheck magit-popup ace-window matlab-mode magit-push-remote magit-gh-pulls magit-find-file magit-filenotify lua-mode ess cpputils-cmake cmake-mode))))
